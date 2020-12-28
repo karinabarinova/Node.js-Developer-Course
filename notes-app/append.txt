@@ -1,0 +1,2 @@
+This text was added by appendFileSync()
+Previous text was not overwritten
