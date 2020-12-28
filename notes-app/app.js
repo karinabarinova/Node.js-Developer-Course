@@ -1,6 +1,5 @@
-const validator = require('validator');
+const chalk = require('chalk');
 
-console.log(validator.isEmail('karina@gmail.com'));
-console.log(validator.isURL('https://mead')); //false 
-console.log(validator.isIP('127.0.0.1'));
-console.log(validator.isMobilePhone('+380630000000'));
+console.log(chalk.green('Success'));
+console.log(chalk.green.inverse.bold("Some text"));
+console.log(chalk.red.underline('Another text'));
