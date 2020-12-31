@@ -1,14 +1,17 @@
 const path = require('path');
 const express = require('express');
+const hbs = require('hbs');
 
 const app = express();// new express application
 
 // Define paths for express congig
 const publicDir = path.join(__dirname, '../public');
-const viewsPath = path.join(__dirname, '../templates');
+const viewsPath = path.join(__dirname, '../templates/views');
+const partialsPath = path.join(__dirname, '../templates/partials')
 //set up handlebars engine and views location
 app.set('view engine', 'hbs');
 app.set('views', viewsPath);
+hbs.registerPartials(partialsPath);
 //setup static directory serve
 app.use(express.static(publicDir));
 
@@ -28,7 +31,9 @@ app.get('/about', (req, res) => {
 
 app.get('/help', (req, res) => {
     res.render('help', {
-        message: "How can I help you?"
+        message: "How can I help you?",
+        title: 'Help',
+        name: 'Karina'
     });
 })
 
