@@ -1,3 +1,5 @@
+//TO DO: delete
+
 //CRUD - create read update and delete operations
 const { MongoClient, ObjectID } = require('mongodb');
 
