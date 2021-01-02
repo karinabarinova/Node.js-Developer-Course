@@ -77,6 +77,26 @@ app.get('/tasks/:id', async (req, res) => {
     }
 })
 
+//updating endpoints
+app.patch('/users/:id', async (req, res) => {
+    const updates = Object.keys(req.body);
+    const allowedUpdates = ['name', 'email', 'password', 'age'];
+    const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
+    const _id = req.params.id;
+
+    if (!isValidOperation)
+        return res.status(404).send({error: 'Invalid updates!'});
+
+    try {
+        const user = await User.findByIdAndUpdate(_id, req.body, { new: true, runValidators: true });
+        if (!user)
+            return res.status(404).send();
+        res.send(user);
+    } catch (e) {
+        res.status(400).send(e);
+    }
+})
+
 app.listen(port, () => {
     console.log('Server is up on port ' + port);
 })
