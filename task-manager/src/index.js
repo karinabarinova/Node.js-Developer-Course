@@ -6,6 +6,17 @@ const taskRouter = require('./routers/task');
 const app = express();
 const port = process.env.PORT || 3000;
 
+
+//add file upload to express
+const multer = require('multer');
+const upload = multer({
+    dest: 'images'
+});
+
+app.post('/upload', upload.single('upload'), (req, res) => {
+    res.send();
+})
+
 app.use(express.json()); //automatically parse 
 //incoming json to an object to access it in our request handlers
 //req.body
