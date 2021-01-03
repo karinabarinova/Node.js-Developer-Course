@@ -18,9 +18,11 @@ router.post('/tasks', auth, async (req, res) => {
 })
 
 // GET /tasks?completed=false // /tasks?completed=true
+//limit skip - pagination
+//GET /tasks?limit=10&skip=20
 router.get('/tasks', auth, async (req, res) => {
-    const match = {}
-
+    const match = {};
+    
     if (req.query.completed)
         match.completed = req.query.completed === 'true'
 
@@ -29,7 +31,11 @@ router.get('/tasks', auth, async (req, res) => {
         // or
         await req.user.populate({
             path: 'tasks',
-            match
+            match,
+            options: {
+                limit: parseInt(req.query.limit),
+                skip: parseInt(req.query.skip)
+            }
         }).execPopulate();
         res.send(req.user.tasks);
     } catch (e) {
