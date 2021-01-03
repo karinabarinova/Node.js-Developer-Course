@@ -56,6 +56,16 @@ userSchema.methods.generateAuthToken = async function () {
     return token;
 } //available on instance
 
+userSchema.methods.toJSON = function () {
+    const user = this;
+    const userObject = user.toObject();
+
+    delete userObject.password;
+    delete userObject.tokens;
+
+    return userObject;
+} //hiding public data
+
 userSchema.statics.findByCredentials = async (email, password) => {
     const user = await User.findOne({ email });
 
